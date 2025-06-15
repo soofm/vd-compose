@@ -1,0 +1,32 @@
+services:
+  bds:
+    image: itzg/minecraft-bedrock-server
+    environment:
+      EULA: "TRUE"
+      TZ: "America/New_York"
+      DIRECT_DOWNLOAD_URL: "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.21.84.1.zip"
+      SERVER_NAME: "Valdrakken"
+      GAMEMODE: "survival"
+      DIFFICULTY: "peaceful"
+      MAX_PLAYERS: 10
+      ONLINE_MODE: true
+      ALLOW_LIST: false
+      ENABLE_LAN_VISIBILITY: true
+      VIEW_DISTANCE: 32
+      TICK_DISTANCE: 4
+      PLAYER_IDLE_TIMEOUT: 0
+      MAX_THREADS: 8
+      LEVEL_NAME: "Blake and Daddy World"
+      LEVEL_TYPE: "default"
+      DEFAULT_PLAYER_PERMISSION_LEVEL: "member"
+      TEXTUREPACK_REQUIRED: false
+    ports:
+      - "19132:19132/udp"
+    volumes:
+      - ./bedrock:/data
+    stdin_open: true
+    tty: true
+volumes:
+  bedrock:
+    external: true
+    name: bedrock
