@@ -1,6 +1,7 @@
 services:
   bds:
     image: itzg/minecraft-bedrock-server
+    container_name: bedrock
     environment:
       EULA: "TRUE"
       TZ: "America/New_York"
@@ -23,10 +24,17 @@ services:
     ports:
       - "19132:19132/udp"
     volumes:
-      - ./bedrock:/data
+      - type: bind
+        source: ../bedrock
+        target: /data
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: 'host'
+    volumes:
+      - type: bind
+        source: ../media
+        target: /media
     stdin_open: true
     tty: true
-volumes:
-  bedrock:
-    external: true
-    name: bedrock
+
