@@ -5,7 +5,7 @@ services:
     environment:
       EULA: "TRUE"
       TZ: "America/New_York"
-      DIRECT_DOWNLOAD_URL: "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.21.84.1.zip"
+      DIRECT_DOWNLOAD_URL: "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.21.90.1.zip"
       SERVER_NAME: "Valdrakken"
       GAMEMODE: "survival"
       DIFFICULTY: $DIFFICULTY
