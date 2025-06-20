@@ -5,7 +5,6 @@ services:
     environment:
       EULA: "TRUE"
       TZ: "America/New_York"
-      DIRECT_DOWNLOAD_URL: "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.21.90.1.zip"
       SERVER_NAME: "Valdrakken"
       GAMEMODE: "survival"
       DIFFICULTY: $DIFFICULTY
@@ -27,6 +26,8 @@ services:
       - type: bind
         source: ../bedrock
         target: /data
+    labels:
+      - "traefik.http.routers.bds.rule=Host(`bds.docker.localhost`)"
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
@@ -39,4 +40,18 @@ services:
         target: /media
     stdin_open: true
     tty: true
+    labels:
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.docker.localhost`)"
+  reverse-proxy:
+    image: traefik:v3.4
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    image: traefik/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
 
